@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA // Orbital Mission Control Center</title>
+  <link rel="stylesheet" href="styles">
+</head>
+<body>
+
+  <!-- NASA OFFICIAL TOP HEADER -->
+  <header class="nasa-header">
+    <div class="nasa-brand-area">
+      <div class="nasa-logo">NASA</div>
+      <span class="nasa-site-title">Eyes & Mission Control</span>
+    </div>
+
+    <nav class="nasa-nav-links">
+      <button class="nav-btn active" data-target="main">01 // Main</button>
+      <button class="nav-btn" data-target="video">02 // Video Feeds</button>
+      <button class="nav-btn" data-target="builder">03 // Rocket Builder</button>
+      <button class="nav-btn" data-target="mission">04 // Mission Sim</button>
+    </nav>
+
+    <div class="nasa-header-right">
+      <span id="utc-clock">UTC 00:00:00</span>
+      <span style="color:var(--nasa-success);">● LIVE</span>
+    </div>
+  </header>
+
+  <!-- VIEW 01: MAIN / LANDING -->
+  <section id="view-main" class="app-view active">
+    <div class="stories-column">
+      <div class="story-card" onclick="switchView('video')">
+        <div class="story-date">November 18, 2026</div>
+        <div class="story-title">Voyager One Light-Day Telemetry</div>
+        <div class="story-desc">Real-time deep space communication status and downlink bandwidth analysis.</div>
+      </div>
+      <div class="story-card" onclick="switchView('mission')">
+        <div class="story-date">December 3, 2026</div>
+        <div class="story-title">Europa Clipper Gravity Assist</div>
+        <div class="story-desc">Orbital mechanics simulation around Jovian system parameters.</div>
+      </div>
+      <div class="story-card" onclick="switchView('builder')">
+        <div class="story-date">Active Mission</div>
+        <div class="story-title">Artemis II Launch Vehicle VAB</div>
+        <div class="story-desc">Configure stages, payload mass, and telemetry margins before launch.</div>
+      </div>
+    </div>
+
+    <div class="main-hero-stage">
+      <img class="hero-bg-img" src="[https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600](https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600)" alt="Space">
+      <div class="hero-content">
+        <h1 class="hero-title">NASA'S EYES & SIMULATOR</h1>
+        <p class="hero-subtitle">
+          Experience Earth, our solar system, and interplanetary spacecraft exploration. Build rockets, configure telemetry, and evaluate mission feasibility with elite AI engineering systems.
+        </p>
+        <button class="nasa-primary-btn" onclick="switchView('builder')">Initialize Rocket VAB</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 02: VIDEO FEEDS -->
+  <section id="view-video" class="app-view">
+    <div class="video-box-main">
+      <div class="sidebar-title">Optical Telemetry Feed</div>
+      <div class="video-player-wrapper">
+        <video id="main-video-player" playsinline controls>
+          <source id="video-source" src="" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-controls-bar">
+        <button class="nav-btn" id="vid-play-btn">Play / Pause</button>
+        <div class="video-progress" id="vid-progress-bar"><div class="video-progress-fill" id="vid-progress-fill"></div></div>
+        <span id="vid-time-txt">00:00</span>
+      </div>
+    </div>
+
+    <div class="video-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Mission Channels</div>
+        <button class="feed-select-btn active" data-src="video1.mp4">CH-01 // Launch Complex 39A</button>
+        <button class="feed-select-btn" data-src="video2.mp4">CH-02 // Upper Stage Separation</button>
+        <button class="feed-select-btn" data-src="video3.mp4">CH-03 // Deep Space Network</button>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">Quick Actions</div>
+        <button class="nasa-primary-btn" style="width:100%;" onclick="switchView('builder')">Proceed to Builder</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 03: ROCKET BUILDER -->
+  <section id="view-builder" class="app-view">
+    <div class="builder-grid-sections">
+      <div class="builder-card">
+        <div class="builder-card-title">1. PAYLOAD & AVIONICS</div>
+        <div class="builder-card-desc">Capsule configuration and power modules</div>
+        <button class="part-option-btn active" data-group="payload" data-val="capsule_shield_full"><span>Full Capsule + Shield</span><small>+120 kg</small></button>
+        <button class="part-option-btn" data-group="payload" data-val="capsule_no_shield"><span>Light Capsule</span><small>+80 kg | Risk</small></button>
+        <div style="margin-top:10px;"></div>
+        <button class="part-option-btn active" data-group="avionics" data-val="full_avionics"><span>Solar Panels + Comm</span><small>Link 100%</small></button>
+        <button class="part-option-btn" data-group="avionics" data-val="battery_only"><span>Battery Only</span><small>Limited power</small></button>
+      </div>
+
+      <div class="builder-card">
+        <div class="builder-card-title">2. ORBITAL STAGE</div>
+        <div class="builder-card-desc">Vacuum insertion engine</div>
+        <button class="part-option-btn active" data-group="orbital_stage" data-val="terrier_1200"><span>Terrier Vacuum Engine</span><small>ΔV: 1200 m/s</small></button>
+        <button class="part-option-btn" data-group="orbital_stage" data-val="spark_850"><span>Spark Small Engine</span><small>ΔV: 850 m/s</small></button>
+        <button class="part-option-btn" data-group="orbital_stage" data-val="none"><span>None</span><small>ΔV: 0 m/s</small></button>
+      </div>
+
+      <div class="builder-card">
+        <div class="builder-card-title">3. BOOSTER STAGE</div>
+        <div class="builder-card-desc">Atmospheric heavy lifter</div>
+        <button class="part-option-btn active" data-group="booster_stage" data-val="swivel_2350"><span>Swivel Heavy Tanks</span><small>ΔV: 2350 | TWR 1.45</small></button>
+        <button class="part-option-btn" data-group="booster_stage" data-val="reliant_2500"><span>Reliant Super Tanks</span><small>ΔV: 2500 | TWR 1.65</small></button>
+        <button class="part-option-btn" data-group="booster_stage" data-val="weak_1800"><span>Weak Booster</span><small>ΔV: 1800 | TWR 0.92</small></button>
+      </div>
+
+      <div class="builder-card">
+        <div class="builder-card-title">4. AERODYNAMICS & STAGING</div>
+        <div class="builder-card-desc">Fairings and deployment order</div>
+        <button class="part-option-btn active" data-group="aero" data-val="fairing_and_4fins"><span>Fairing + 4 Fins</span><small>Stable</small></button>
+        <button class="part-option-btn" data-group="aero" data-val="no_fairing"><span>No Fairing</span><small>High Drag</small></button>
+        <div style="margin-top:10px;"></div>
+        <select id="bld-staging" style="width:100%;">
+          <option value="correct_bottom_up">Staging: Bottom-Up Sequence</option>
+          <option value="wrong_chute_first">ERROR: Chute first</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="builder-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="sidebar-title">Telemetry Verification</div>
+        <div class="metrics-terminal">
+          <div class="metric-row"><span>TOTAL DELTA-V:</span><strong id="bld-deltav" class="metric-ok">3550 m/s</strong></div>
+          <div class="metric-row"><span>LAUNCH TWR:</span><strong id="bld-twr" class="metric-ok">1.45</strong></div>
+        </div>
+        <div class="sidebar-title">Generated Configuration</div>
+        <pre id="builder-json-out" style="background:#020408; border:1px solid var(--nasa-border); padding:8px; font-family:var(--font-mono); font-size:0.65rem; color:var(--nasa-success); max-height:140px; overflow:auto;"></pre>
+      </div>
+      <button class="nasa-primary-btn" style="width:100%; margin-top:12px;" onclick="switchView('mission')">Proceed to Mission Sim →</button>
+    </div>
+  </section>
+
+  <!-- VIEW 04: MISSION SIMULATOR -->
+  <section id="view-mission" class="app-view">
+    <div class="sidebar-card" style="display:flex; flex-direction:column; gap:12px;">
+      <div class="sidebar-title">Mission Scenario</div>
+      <div class="feed-select-btn active" onclick="setMission('earth_climate_monitor')">EARTH CLIMATE MONITOR</div>
+      <div class="feed-select-btn" onclick="setMission('mars_exploration')">MARS DEEP SPACE PROBE</div>
+      <div class="sidebar-title" style="margin-top:10px;">Flight Status</div>
+      <div id="live-alert" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--nasa-success);">SYSTEM READY</div>
+    </div>
+
+    <div class="planet-stage-box">
+      <div class="earth-globe" id="globe-element"></div>
+      <div style="position:absolute; bottom:16px; left:16px; font-family:var(--font-mono); font-size:0.75rem; color:var(--nasa-light-blue);">
+        ORBITAL DECK // ACTIVE TELEMETRY
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="sidebar-title">Subsystem Parameters</div>
+        <div class="sliders-container">
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Orbit Regime</span><span class="ctrl-value" id="v-orbit">LEO</span></div>
+            <select id="in-orbit"><option value="LEO">LEO (Low Earth Orbit)</option><option value="GEO">GEO</option><option value="HEO">HEO (Deep Space)</option></select>
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Mass (kg)</span><span class="ctrl-value" id="v-mass">250 kg</span></div>
+            <input type="range" id="in-mass" min="50" max="1200" step="10" value="250">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Power (W)</span><span class="ctrl-value" id="v-power">500 W</span></div>
+            <input type="range" id="in-power" min="100" max="3000" step="50" value="500">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Budget ($M)</span><span class="ctrl-value" id="v-budget">$30M</span></div>
+            <input type="range" id="in-budget" min="10" max="300" step="5" value="30">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Data (GB/day)</span><span class="ctrl-value" id="v-data">100 GB</span></div>
+            <input type="range" id="in-data" min="10" max="500" step="10" value="100">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Downlink (kbps)</span><span class="ctrl-value" id="v-comm">5000 kbps</span></div>
+            <input type="range" id="in-comm" min="250" max="20000" step="250" value="5000">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row"><span>Lifetime (yrs)</span><span class="ctrl-value" id="v-life">3 YRS</span></div>
+            <input type="range" id="in-life" min="1" max="15" step="1" value="3">
+          </div>
+        </div>
+      </div>
+      <button class="nasa-primary-btn" id="btn-launch-mission" style="width:100%; margin-top:12px;">LAUNCH MISSION & EVALUATE</button>
+    </div>
+  </section>
+
+  <!-- FLIGHT OVERLAY ANIMATION -->
+  <div id="flight-overlay">
+    <div id="flight-status-text" style="font-family:var(--font-mono); font-size:1rem; color:var(--nasa-light-blue);">IGNITION SEQUENCE STARTED...</div>
+    <div class="flight-window">
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); color:var(--text-muted);">
+        [ NASA TELEMETRY ANIMATION RUNNING ]
+      </div>
+    </div>
+  </div>
+
+  <!-- AI EVALUATION MODAL -->
+  <div id="ai-modal">
+    <div class="modal-box-card">
+      <div>
+        <div class="sidebar-title">Mission Evaluation Verdict</div>
+        <div style="font-size:2rem; font-weight:900; color:var(--nasa-light-blue); font-family:var(--font-mono); margin:10px 0;" id="m-score">9/10</div>
+        <p id="m-summary" style="font-size:0.85rem; line-height:1.5; color:var(--text-main); margin-bottom:16px;"></p>
+        <button class="nasa-primary-btn" onclick="document.getElementById('ai-modal').style.display='none'">Return to Control Center</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; border-left:1px solid var(--nasa-border); padding-left:16px;">
+        <div class="sidebar-title">AI Consultant Chat</div>
+        <div id="ai-chat-msgs" style="flex:1; max-height:160px; overflow-y:auto; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Ask me about mission telemetry...</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="ai-chat-input" placeholder="Query AI..." style="flex:1; background:#0b0f19; border:1px solid var(--nasa-border); color:#fff; padding:6px; font-size:0.75rem;">
+          <button class="nasa-primary-btn" id="ai-chat-send" style="padding:6px 12px;">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
