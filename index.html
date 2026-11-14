@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORBIT-OS // HYPER SPACE SIMULATOR</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="bg-video-container">
+    <video id="bg-video" autoplay loop muted playsinline>
+      <!-- INSERT BACKGROUND SPACE JOURNEY VIDEO PATH HERE -->
+      <source src="space_background.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hyper-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <div id="intro-menu">
+    <div class="adhd-side-col">
+      <div class="adhd-vid-card">
+        <span class="adhd-tag">CAM-01 // HYPERDRIVE</span>
+        <div class="adhd-spinner"></div>
+        <video autoplay loop muted playsinline>
+          <!-- INSERT LEFT TOP ADHD SPACE VIDEO PATH HERE -->
+          <source src="adhd_space_1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="adhd-vid-card">
+        <span class="adhd-tag">CAM-02 // NEBULA DRIFT</span>
+        <div class="adhd-spinner"></div>
+        <video autoplay loop muted playsinline>
+          <!-- INSERT LEFT BOTTOM ADHD SPACE VIDEO PATH HERE -->
+          <source src="adhd_space_2.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="intro-center-stage">
+      <div class="deco-orbit-ring"></div>
+      <div class="deco-orbit-ring-2"></div>
+
+      <div class="marvel-box">
+        <div class="marvel-fallback-nebula"></div>
+        <video class="marvel-vid-bg" autoplay loop muted playsinline>
+          <!-- INSERT MARVEL TEXT BACKGROUND VIDEO (.MP4) PATH HERE -->
+          <source src="earth_intro_4k.mp4" type="video/mp4">
+        </video>
+        <div class="marvel-knockout-mask">
+          <div class="marvel-title">ORBITAL COMMAND</div>
+          <div class="marvel-sub">SPACE MISSION SIMULATOR</div>
+        </div>
+      </div>
+
+      <div class="intro-purpose">
+        Welcome to the interactive orbital engineering simulator. Balance spacecraft mass, solar wattage, 
+        orbital altitude, and downlink telemetry to survive deep-space constraints and achieve a 10/10 mission rating.
+      </div>
+
+      <button class="btn-arcade-start" id="btn-start-game">
+        ⚡ ENTER MISSION CONTROL ⚡
+      </button>
+    </div>
+
+    <div class="adhd-side-col">
+      <div class="adhd-vid-card">
+        <span class="adhd-tag">CAM-03 // PULSAR SCAN</span>
+        <div class="adhd-spinner"></div>
+        <video autoplay loop muted playsinline>
+          <!-- INSERT RIGHT TOP ADHD SPACE VIDEO PATH HERE -->
+          <source src="adhd_space_3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="adhd-vid-card">
+        <span class="adhd-tag">CAM-04 // ORBIT TELEMETRY</span>
+        <div class="adhd-spinner"></div>
+        <video autoplay loop muted playsinline>
+          <!-- INSERT RIGHT BOTTOM ADHD SPACE VIDEO PATH HERE -->
+          <source src="adhd_space_4.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="hud-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="gyro-icon"></div>
+        <span>ORBIT-OS // HYPER SIM</span>
+      </div>
+
+      <div class="nav-pills">
+        <button class="nav-pill" id="btn-reopen-intro">00 // INTRO MENU</button>
+        <button class="nav-pill active" id="tab-brief">01 // VIDEO FEEDS</button>
+        <button class="nav-pill" id="tab-sim">02 // 3D ORBIT DECK</button>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div class="eq-bars">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+        <span id="utc-time" style="color:var(--cyan);">UTC 00:00:00</span>
+        <span id="vel-ticker" style="color:var(--emerald);">VEL: 7.62 KM/S</span>
+      </div>
+    </header>
+
+    <section id="view-briefing">
+      <div class="hud-box">
+        <div class="box-head">
+          <span>OPTICAL TELEMETRY STREAM</span>
+          <span id="feed-status">CH-01 // LOCKED</span>
+        </div>
+
+        <div class="video-stage">
+          <video id="main-player" playsinline>
+            <source id="main-player-source" src="" type="video/mp4">
+          </video>
+          <div class="video-reticle"></div>
+        </div>
+
+        <div>
+          <div class="player-controls">
+            <button class="nav-pill" id="btn-play">▶ PLAY</button>
+            <button class="nav-pill" id="btn-mute">🔊 AUDIO</button>
+            <div class="track-bar" id="track-bar">
+              <div class="track-fill" id="track-fill"></div>
+            </div>
+            <span id="time-txt">00:00</span>
+            <button class="nav-pill" id="btn-fs">⛶</button>
+          </div>
+          <div class="feed-Waitlist" id="feed-list"></div>
+        </div>
+      </div>
+
+      <div class="hud-box">
+        <div class="box-head">
+          <span>ORBITAL RADAR & RULES</span>
+          <span>ACTIVE SCAN</span>
+        </div>
+
+        <div class="radar-widget">
+          <div class="radar-sweep"></div>
+        </div>
+
+        <div class="compact-badges">
+          <div class="c-badge">
+            <strong>LEO vs GEO</strong>
+            Detail vs Continuous Link
+          </div>
+          <div class="c-badge">
+            <strong>MASS vs POWER</strong>
+            Payload vs Solar Wattage
+          </div>
+          <div class="c-badge">
+            <strong>DATA vs KBPS</strong>
+            Volume vs Downlink Cap
+          </div>
+          <div class="c-badge">
+            <strong>COST vs LIFE</strong>
+            Budget vs Station-Keeping
+          </div>
+        </div>
+
+        <button class="btn-engage" id="btn-open-sim">
+          🚀 LAUNCH 3D ORBIT SIMULATOR
+        </button>
+      </div>
+    </section>
+
+    <section id="view-mission">
+      <div class="hud-box">
+        <div>
+          <div class="box-head">
+            <span>MISSION TARGET</span>
+            <span>SELECT</span>
+          </div>
+
+          <div class="sc-switch">
+            <div class="sc-item active" data-mission="earth_climate_monitor">
+              <div class="sc-title">
+                <span>EARTH CLIMATE</span>
+                <span style="color: var(--emerald);">●</span>
+              </div>
+              <div class="sc-meta">MAX: $50M | 300 KG | REQ: LEO</div>
+            </div>
+
+            <div class="sc-item" data-mission="mars_exploration">
+              <div class="sc-title">
+                <span>MARS DEEP SPACE</span>
+                <span style="color: #94a3b8;">○</span>
+              </div>
+              <div class="sc-meta">MAX: $250M | 1000 KG | LONG LIFE</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="box-head" style="margin-top: 10px;">
+            <span>PLANETARY SCAN</span>
+            <span id="scan-target-name" style="color: var(--amber);">EARTH + LUNA</span>
+          </div>
+          <div style="font-family: var(--mono); font-size: 0.74rem; line-height: 1.75; color: #f1f5f9;">
+            <div style="display:flex; justify-content:space-between;"><span>ORBIT ALTITUDE:</span><span id="hud-alt">540 KM</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>NATURAL SAT:</span><span id="hud-moon">LUNA (384,400 KM)</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>LINK LOCK:</span><span style="color:var(--cyan);">S-BAND ACTIVE</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="box-head">
+            <span>JSON PAYLOAD FOR BACKEND</span>
+            <span>LIVE</span>
+          </div>
+          <pre id="json-out" style="background:#051024; border:1px solid rgba(0,246,255,0.35); border-radius:6px; padding:8px; font-family:var(--mono); font-size:0.66rem; color:var(--emerald); max-height:145px; overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div class="planet-stage">
+        <div class="stage-overlay-top">
+          <div>
+            <span style="color: var(--amber);">■</span>
+            <strong id="stage-mission-label">SCENARIO A // EARTH OBSERVATION</strong>
+          </div>
+          <div style="color: var(--cyan);" id="stage-coords">LAT 12.64° N | LON 45.21° E</div>
+        </div>
+
+        <div class="hud-ring-1"></div>
+        <div class="hud-ring-2"></div>
+        <div class="hud-ring-3"></div>
+
+        <div class="earth-sphere" id="planet-sphere">
+          <div class="earth-clouds"></div>
+        </div>
+
+        <div class="moon-orbit-track" id="moon-track">
+          <div class="moon-body">
+            <span class="moon-label" id="moon-label">LUNA // ORBITING</span>
+          </div>
+        </div>
+
+        <div class="sat-orbit-track" id="sat-track">
+          <div class="sat-node"></div>
+        </div>
+
+        <div class="stage-overlay-bottom">
+          <div class="power-bars-hud">
+            <div class="p-col">
+              <div class="p-bar-wrap"><div class="p-bar-fill" id="bar-mass"></div></div>
+              <span>MASS</span>
+            </div>
+            <div class="p-col">
+              <div class="p-bar-wrap"><div class="p-bar-fill" id="bar-pwr"></div></div>
+              <span>PWR</span>
+            </div>
+            <div class="p-col">
+              <div class="p-bar-wrap"><div class="p-bar-fill" id="bar-cost"></div></div>
+              <span>COST</span>
+            </div>
+            <div class="p-col">
+              <div class="p-bar-wrap"><div class="p-bar-fill" id="bar-link"></div></div>
+              <span>LINK</span>
+            </div>
+          </div>
+
+          <div class="status-ticker" id="live-alert">
+            READY FOR AI EVALUATION
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-box">
+        <div class="box-head">
+          <span>SUBSYSTEM CALIBRATION</span>
+          <span>7 PARAMS</span>
+        </div>
+
+        <div class="sliders-wrap">
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>ORBIT REGIME</span><span class="ctrl-val" id="v-orbit">LEO</span></div>
+            <select id="in-orbit">
+              <option value="LEO">LEO (Low Earth Orbit)</option>
+              <option value="GEO">GEO (Geostationary)</option>
+              <option value="HEO">HEO (Deep Space / Elliptical)</option>
+            </select>
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>MASS (KG)</span><span class="ctrl-val" id="v-mass">250 / 300</span></div>
+            <input type="range" id="in-mass" min="50" max="1200" step="10" value="250">
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>POWER (WATTS)</span><span class="ctrl-val" id="v-power">500 W</span></div>
+            <input type="range" id="in-power" min="100" max="3000" step="50" value="500">
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>BUDGET ($M)</span><span class="ctrl-val" id="v-budget">$30M / $50M</span></div>
+            <input type="range" id="in-budget" min="10" max="300" step="5" value="30">
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>DATA (GB/DAY)</span><span class="ctrl-val" id="v-data">100 GB</span></div>
+            <input type="range" id="in-data" min="10" max="500" step="10" value="100">
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>DOWNLINK (KBPS)</span><span class="ctrl-val" id="v-comm">5000 kbps</span></div>
+            <input type="range" id="in-comm" min="250" max="20000" step="250" value="5000">
+          </div>
+
+          <div class="ctrl-item">
+            <div class="ctrl-head"><span>LIFETIME (YRS)</span><span class="ctrl-val" id="v-life">3 YRS</span></div>
+            <input type="range" id="in-life" min="1" max="15" step="1" value="3">
+          </div>
+        </div>
+
+        <button class="btn-engage" id="btn-transmit">
+          🚀 LAUNCH MISSION
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <div id="rocket-overlay">
+    <div class="flight-telemetry-status" id="flight-status-text">
+      IGNITION SEQUENCE STARTED // LAUNCHING HEAVY ORBITAL VEHICLE...
+    </div>
+
+    <div class="flight-arena" id="flight-arena">
+      <div class="flight-home-planet"></div>
+      <div class="flight-path-line"></div>
+      <div class="flight-target-planet"></div>
+      <div id="exhaust-layer"></div>
+
+      <div class="rocket-actor" id="rocket-actor">
+        <div class="plume-outer"></div>
+        <div class="plume-core"></div>
+
+        <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hullMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f8fafc"/>
+              <stop offset="35%" stop-color="#cbd5e1"/>
+              <stop offset="70%" stop-color="#64748b"/>
+              <stop offset="100%" stop-color="#1e293b"/>
+            </linearGradient>
+            <linearGradient id="noseCarbon" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#334155"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+            <linearGradient id="nozzleGlow" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="#1e293b"/>
+            </linearGradient>
+          </defs>
+          <polygon points="18,30 32,34 32,43 18,45" fill="url(#nozzleGlow)" stroke="#475569" stroke-width="1"/>
+          <polygon points="18,45 32,47 32,56 18,60" fill="url(#nozzleGlow)" stroke="#475569" stroke-width="1"/>
+          <polygon points="35,28 16,8 52,18 68,28" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/>
+          <polygon points="35,62 16,82 52,72 68,62" fill="#0f172a" stroke="#64748b" stroke-width="1.2"/>
+          <rect x="92" y="20" width="12" height="7" fill="#334155" stroke="#94a3b8" stroke-width="1"/>
+          <rect x="92" y="63" width="12" height="7" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+          <path d="M30,27 L145,27 C175,27 202,38 212,45 C202,52 175,63 145,63 L30,63 Z" fill="url(#hullMetal)" stroke="#e2e8f0" stroke-width="1.2"/>
+          <rect x="108" y="27" width="14" height="36" fill="#0f172a"/>
+          <path d="M178,31 C194,35 206,41 212,45 C206,49 194,55 178,59 Z" fill="url(#noseCarbon)"/>
+          <line x1="65" y1="27" x2="65" y2="63" stroke="#475569" stroke-width="1.2"/>
+          <line x1="32" y1="45" x2="178" y2="45" stroke="rgba(15,23,42,0.45)" stroke-width="1.5"/>
+          <ellipse cx="152" cy="41" rx="7" ry="4" fill="#00f6ff" stroke="#0f172a" stroke-width="1.2"/>
+          <circle cx="134" cy="41" r="3" fill="#38bdf8"/>
+        </svg>
+      </div>
+
+      <div class="explosion-actor" id="explosion-actor">
+        <div class="exp-shockwave"></div>
+        <div class="exp-fireball"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ai-modal">
+    <div class="modal-card">
+      <div style="display:flex; flex-direction:column; justify-content:space-between; gap:12px;">
+        <div class="box-head">
+          <span>MISSION TELEMETRY VERDICT</span>
+          <span id="m-tier">EVALUATED</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="grade-big" id="m-score">9/10</div>
+          <div style="font-family:var(--mono); font-size:0.75rem; color:#cbd5e1;">
+            CONSEQUENCE ANALYSIS COMPLETE
+          </div>
+        </div>
+
+        <p id="m-summary" style="font-size:0.85rem; line-height:1.5; color:#f8fafc; max-height: 140px; overflow-y: auto;"></p>
+
+        <button class="nav-pill active" id="btn-close-modal" style="padding:8px;">
+          ← RETURN TO ORBITAL HUD
+        </button>
+      </div>
+
+      <!-- ПРАВАЯ ЧАСТЬ: ИНТЕРАКТИВНЫЙ ЧАТ С ИИ ВМЕСТО КАРТИНКИ -->
+      <div class="modal-chat-wrap">
+        <div class="box-head" style="margin-bottom: 6px;">
+          <span>AI MISSION CONSULTANT</span>
+          <span>LIVE Q&A</span>
+        </div>
+        <div id="ai-chat-messages" class="chat-messages-area">
+          <div class="chat-msg ai">Ask me anything about your mission telemetry or how to improve your score!</div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="ai-chat-input" placeholder="Ask AI about this flight..." />
+          <button id="ai-chat-send">SEND</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="modal-img-wrap">
+        <img id="m-img" src="" alt="Mission Grade">
+        <div id="m-caption" style="padding:8px; font-family:var(--mono); font-size:0.68rem; text-align:center; color:var(--cyan);">
+          STATUS VISUAL
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
